@@ -3,8 +3,12 @@
 /* appearance */
 static const unsigned int borderpx  = 2;        /* border pixel of windows */
 static const unsigned int snap      = 32;       /* snap pixel */
+static const unsigned int systraypinning = 0;   /* 0: sloppy systray follows selected monitor, >0: pin systray to monitor X */
+static const unsigned int systrayspacing = 2;   /* systray spacing */
+static const int systraypinningfailfirst = 1;   /* 1: if pinning fails, display systray on the first monitor, False: display systray on the last monitor*/
+static const int showsystray        = 1;     /* 0 means no systray */
 static const int showbar            = 1;        /* 0 means no bar */
-static const int topbar             = 1;        /* 0 means bottom bar */
+static const int topbar             = 0;        /* 0 means bottom bar */
 static const char *fonts[]          = { "Essential PragmataPro:size=10:antialias=true" };
 static const char dmenufont[]       = "Essential PragmataPro:size=10:antialias=true";
 static const char col_gray1[]       = "#181818";
@@ -16,8 +20,10 @@ static const char col_white[]       = "#F4E2DD";
 static const char col_purple[]      = "#24121C";
 static const char *colors[][3]      = {
 	/*               fg         bg         border   */
-	[SchemeNorm] = { col_white, col_gray1, col_purple },
-	[SchemeSel]  = { col_red, col_gray1,  col_red  },
+	[SchemeNorm] = 		{ col_white, col_gray1, col_purple },
+	[SchemeSel]  = 		{ col_red, col_gray1,  col_red  },
+	[SchemeWarn] =		{ col_white, col_orange, col_orange },
+	[SchemeUrgent] =	{ col_white, col_red, col_red },
 };
 
 /* tagging */
@@ -28,12 +34,12 @@ static const Rule rules[] = {
 	 *	WM_CLASS(STRING) = instance, class
 	 *	WM_NAME(STRING) = title
 	 */
-	/* class      instance    title       tags mask     isfloating   monitor */
-	{ "Gimp",     NULL,       NULL,       0,            1,           -1 },
-	{ "Firefox",  NULL,       NULL,       1 << 8,       0,           -1 },
-	{ "Google-chrome",  NULL,       NULL,       1 << 2,       0,           -1 },
+	/* class      			instance    title       tags mask     isfloating   monitor */
+	{ "Gimp",     			NULL,       NULL,       0,            1,           -1 },
+	{ "Firefox",  			NULL,       NULL,       1 << 8,       0,           -1 },
+	{ "Google-chrome",  NULL,       NULL,       1 << 0,       0,           -1 },
 	{ "qutebrowser",  	NULL,       NULL,       1 << 0,       0,           -1 },
-	{ "Astroid",  			NULL,       NULL,       1 << 3,       0,           -1 },
+	{ "Astroid",  			NULL,       NULL,       1 << 2,       0,           -1 },
 	{ "stalonetray",  	NULL,       NULL,       0,       			1,           -1 },
 	{ "trayer",  				NULL,       NULL,       0,       			1,           -1 },
 	{ "panel",  				NULL,       NULL,       0,       			1,           -1 },
